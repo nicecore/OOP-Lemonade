@@ -10,6 +10,8 @@ import org.example.lemonadestand.model.Customer;
 import org.example.lemonadestand.model.Lemonade;
 import org.example.lemonadestand.model.Order;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Working directory: " + new File(".").getCanonicalPath());
@@ -21,12 +23,14 @@ public class Main {
         System.out.println("Let's get started with your name:");
 
         String name = scanner.nextLine();
-        System.out.println("Hi " + name + ", nice to meet you! \n Next we need your phone number so we can call you when your order is ready:");
-        
+        System.out.println("Hi " + name
+                + ", nice to meet you! \n Next we need your phone number so we can call you when your order is ready:");
+
         String phoneNumber = scanner.nextLine();
-        System.out.println("Awesome! We have your phone number as: " + phoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"));
+        System.out.println("Awesome! We have your phone number as: "
+                + phoneNumber.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3"));
         System.out.println("Is that correct? (Y for Yes | N for No)");
-        
+
         String validation = "";
 
         do {
@@ -38,7 +42,7 @@ public class Main {
             }
             System.out.println("Please enter Y for Yes or N for No");
             validation = scanner.nextLine();
-            
+
         } while (!validation.equals("Y"));
 
         System.out.println("Great! Let's get to your order now...");
@@ -47,8 +51,7 @@ public class Main {
         Order order = new Order(customer);
 
         System.out.println("How many lemonades would you like today?");
-        
-        
+
         for (int numberOfLemonades = scanner.nextInt(), i = 1; numberOfLemonades > 0; numberOfLemonades--, i++) {
             System.out.println("How much lemon juice do you want for lemonade " + i + "? (in cups)");
             double lemonJuice = scanner.nextDouble();
@@ -65,20 +68,25 @@ public class Main {
         // Save the order somewhere
 
         File file = new File("./orders");
-
-        System.out.println(file.isDirectory());
-
         File[] files = file.listFiles();
 
-        FileOutputStream fileOutputStream = new FileOutputStream(file + "/order" + (files.length + 1) + ".txt");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        // FileOutputStream fileOutputStream = new FileOutputStream(file + "/order" + (files.length + 1) + ".txt");
+        // ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
-        objectOutputStream.writeObject(order);
+        // objectOutputStream.writeObject(order);
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(new File(file + "/order" + (files.length + 1) + ".json"), order);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+ 
         System.out.println("Successfully placed order! :D");
         System.out.println("Your order total is: " + order.getTotal());
 
-
+        scanner.close();
 
     }
 

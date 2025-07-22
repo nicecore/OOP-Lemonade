@@ -2,6 +2,7 @@ package org.example;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Scanner;
@@ -14,20 +15,25 @@ public class ViewOrder {
 
         File file = new File("./orders");
 
-
-
-
         while (true) {
             System.out.println("Which order would you like to view?");
             int orderNumber = scanner.nextInt();
+            FileInputStream fileInputStream;
+            ObjectInputStream objectInputStream = null;
 
-            FileInputStream fileInputStream = new FileInputStream(file + "/order" + orderNumber + ".txt");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            try {
+                fileInputStream = new FileInputStream(file + "/order" + orderNumber + ".txt");
+                objectInputStream = new ObjectInputStream(fileInputStream);
+                // casting
+                Order order = (Order) objectInputStream.readObject();
+                System.out.println(order.getLemonades());
+                System.out.println("Total: " + order.getTotal());
+            } catch (FileNotFoundException e) {
+                System.out.println("Order number " + orderNumber + " does not exist.");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
 
-            Order order = (Order) objectInputStream.readObject();
-
-            System.out.println(order.getLemonades());
-            System.out.println("Total: " + order.getTotal());
         }
     }
 }

@@ -1,0 +1,17 @@
+{
+    "customer": {
+        "name": "Adam",
+        "phoneNumber": "1232323232"
+    },
+    "lemonades": [
+        {
+            "lemonJuice": 2.0,
+            "water": 3.0,
+            "sugar": 4.0,
+            "iceCubes": 5,
+            "price": 1.7,
+            "cup": 1
+        }
+    ],
+    "total": 1.7
+}
