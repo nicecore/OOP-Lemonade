@@ -1,6 +1,8 @@
 package org.example.lemonadestand.model;
 
-public class Lemonade {
+import java.io.Serializable;
+
+public class Lemonade implements Serializable {
     private double lemonJuice;
     private double water;
     private double sugar;

@@ -1,10 +1,12 @@
 package org.example.lemonadestand.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class Order {
-
+// implement Serializable interface for i/o stream
+public class Order implements Serializable {
 
     @Override
     public boolean equals(Object o) {
@@ -18,10 +20,8 @@ public class Order {
         return Objects.hash(customer, lemonades.hashCode());
     }
 
-    //    private field of type "Customer" which we defined elsewhere"
     private Customer customer;
-//    private collection/array of Lemonade (previously defined by us) objects
-    private ArrayList<Lemonade> lemonades;
+    private List<Lemonade> lemonades;
 
     private double total;
 
@@ -38,7 +38,7 @@ public class Order {
     }
 
 
-    public ArrayList<Lemonade> getLemonades() {
+    public List<Lemonade> getLemonades() {
         return lemonades;
     }
 

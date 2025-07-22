@@ -1,6 +1,8 @@
 package org.example.lemonadestand.model;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
 //    Private bc we only want Customer object after it's created should be able to access name.
 //    Use a getter to expose a method for other objects to get a Customer object's name.
     private String name;
