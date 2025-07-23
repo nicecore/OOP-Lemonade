@@ -8,6 +8,8 @@ import java.util.Objects;
 // implement Serializable interface for i/o stream
 public class Order implements Serializable {
 
+    private Integer id;
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -32,6 +34,13 @@ public class Order implements Serializable {
         lemonades = new ArrayList<>();
 //    ensure price starts at 0
     }
+
+    public Order(Integer id, double total) {
+        this.id = id;
+        this.total = total;
+    }
+
+    public Order() {}
 
     public Customer getCustomer() {
         return customer;
